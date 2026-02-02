@@ -62,25 +62,25 @@
             <div class="card-header bg-success text-white">
                 <h5 class="mb-0">
                     <i class="fas fa-users"></i>
-                    Inscriptions ({{ $formation->inscriptions->count() }})
+                    Inscriptions ({{ $formation->inscription ? $formation->inscription->count() : 0 }})
                 </h5>
             </div>
             <div class="card-body">
-                @if($formation->inscriptions->isEmpty())
+                @if($formation->inscription ? $formation->inscription->isEmpty() : "")
                 <p class="text-muted">Aucune inscription pour cette formation.</p>
                 @else
                 <ul class="list-group">
-                    @foreach($formation->inscriptions as $inscription)
+                    @foreach($formation->inscription as $i)
                     <li class="list-group-item">
                         <div>
-                            <strong>{{ $inscription->nom_apprenant }}</strong><br>
+                            <strong>{{ $i->nom_apprenant }}</strong><br>
                             <small class="text-muted">
-                                <i class="fas fa-envelope"></i> {{ $inscription->email }}<br>
-                                <i class="fas fa-calendar"></i> {{ $inscription->date_inscription->format('d/m/Y') }}
+                                <i class="fas fa-envelope"></i> {{ $i->email }}<br>
+                                <i class="fas fa-calendar"></i> {{ $i->date_inscription->format('d/m/Y') }}
                             </small>
                         </div>
                         <div class="mt-2">
-                            <a href="{{ route('inscriptions.show', $inscription) }}"
+                            <a href="{{ route('inscriptions.show', $i) }}"
                                 class="btn btn-sm btn-info">
                                 Voir détails
                             </a>
